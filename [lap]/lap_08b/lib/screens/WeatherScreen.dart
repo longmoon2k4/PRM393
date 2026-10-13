@@ -63,9 +63,14 @@ class _WeatherscreenState extends State<Weatherscreen> {
                     decoration: const InputDecoration(
                       labelText: 'Kinh độ',
                       border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 12,
+                      ),
                     ),
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -75,16 +80,24 @@ class _WeatherscreenState extends State<Weatherscreen> {
                     decoration: const InputDecoration(
                       labelText: 'Vĩ độ',
                       border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 12,
+                      ),
                     ),
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
                 ElevatedButton(
                   onPressed: _loadWeather,
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 16,
+                      horizontal: 16,
+                    ),
                   ),
                   child: const Text('Xem'),
                 ),
@@ -97,12 +110,12 @@ class _WeatherscreenState extends State<Weatherscreen> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
-                }
-                else if (snapshot.hasError) {
+                } else if (snapshot.hasError) {
                   return Center(child: Text('Lỗi: ${snapshot.error}'));
-                }
-                else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('Không có dữ liệu thời tiết.'));
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(
+                    child: Text('Không có dữ liệu thời tiết.'),
+                  );
                 }
                 final weatherList = snapshot.data!;
                 return ListView.builder(
@@ -110,7 +123,10 @@ class _WeatherscreenState extends State<Weatherscreen> {
                   itemBuilder: (context, index) {
                     final weather = weatherList[index];
                     return Card(
-                      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Row(
@@ -132,16 +148,22 @@ class _WeatherscreenState extends State<Weatherscreen> {
                                     ),
                                   ),
                                   const SizedBox(height: 4),
-                                  Text('Nhiệt độ: ${weather.tempMin}°C - ${weather.tempMax}°C'),
+                                  Text(
+                                    'Nhiệt độ: ${weather.tempMin}°C - ${weather.tempMax}°C',
+                                  ),
                                   Text('Trạng thái: ${weather.weather}'),
                                   const Divider(),
                                   Text(
                                     '${weather.getUmbrellaAdvice}',
-                                    style: const TextStyle(color: Colors.blueAccent),
+                                    style: const TextStyle(
+                                      color: Colors.blueAccent,
+                                    ),
                                   ),
                                   Text(
                                     '${weather.getClotherAdvice}',
-                                    style: const TextStyle(color: Colors.orange),
+                                    style: const TextStyle(
+                                      color: Colors.orange,
+                                    ),
                                   ),
                                 ],
                               ),
