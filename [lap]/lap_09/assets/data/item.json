@@ -1,0 +1,27 @@
+{
+  "store_name": "Cửa Hàng Mẫu",
+  "is_active": true,
+  "rating": 4.8,
+  "founder": null,
+  "address": {
+    "city": "Hồ Chí Minh",
+    "district": "Quận 1",
+    "street": "Lê Lợi"
+  },
+  "products": [
+    {
+      "id": 1,
+      "name": "Áo thun nam",
+      "price": 150000,
+      "colors": ["trắng", "đen", "xám"],
+      "in_stock": true
+    },
+    {
+      "id": 2,
+      "name": "Quần jeans",
+      "price": 350000,
+      "colors": ["xanh đậm", "đen"],
+      "in_stock": false
+    }
+  ]
+}
