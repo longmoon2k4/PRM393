@@ -1,9 +1,9 @@
 class Product {
   final int id;
-  final String name;
-  final double price;
-  final List<String> colors;
-  final bool inStock;
+  String name;
+  double price;
+  List<String> colors;
+  bool inStock;
 
   Product({
     required this.id,
