@@ -3,33 +3,35 @@ class Product {
   final String name;
   final double price;
   final List<String> colors;
-  final bool in_stock;
+  final bool inStock;
 
   Product({
     required this.id,
     required this.name,
     required this.price,
     required this.colors,
-    required this.in_stock,
+    required this.inStock,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'] as int,
-      name: json['name'] as String,
-      price: json['price'] as double,
-      colors: List<String>.from(json['colors'] as List<dynamic>),
-      in_stock: json['in_stock'] as bool,
+      id: (json['id'] as num?)?.toInt() ?? DateTime.now().millisecondsSinceEpoch,
+      name: (json['name'] as String?) ?? 'Chưa có tên',
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      colors: json['colors'] != null
+          ? List<String>.from((json['colors'] as List<dynamic>).map((e) => e.toString()))
+          : <String>[],
+      inStock: (json['in_stock'] as bool?) ?? (json['inStock'] as bool?) ?? true,
     );
   }
 
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
       'price': price,
       'colors': colors,
-      'in_stock': in_stock,
+      'in_stock': inStock,
     };
   }
 }

@@ -1,18 +1,17 @@
 import 'package:lap_09/models/product.dart';
-
 import 'address.dart';
 
 class Store {
-  final String store_name;
-  final bool is_active;
+  final String storeName;
+  final bool isActive;
   final double rating;
   final String? founder;
   final Address address;
   final List<Product> products;
 
   Store({
-    required this.store_name,
-    required this.is_active,
+    required this.storeName,
+    required this.isActive,
     required this.rating,
     required this.founder,
     required this.address,
@@ -21,21 +20,29 @@ class Store {
 
   factory Store.fromJson(Map<String, dynamic> json) {
     return Store(
-      store_name: json['store_name'] as String,
-      is_active: json['is_active'] as bool,
-      rating: json['rating'] as double,
+      storeName: (json['store_name'] as String?) ??
+          (json['storeName'] as String?) ??
+          'Cửa Hàng',
+      isActive: (json['is_active'] as bool?) ??
+          (json['isActive'] as bool?) ??
+          true,
+      rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
       founder: json['founder'] as String?,
-      address: Address.fromJson(json['address'] as Map<String, dynamic>),
-      products: (json['products'] as List<dynamic>)
-          .map((p) => Product.fromJson(p as Map<String, dynamic>))
-          .toList(),
+      address: json['address'] != null
+          ? Address.fromJson(json['address'] as Map<String, dynamic>)
+          : Address(city: '', district: '', street: ''),
+      products: json['products'] != null
+          ? (json['products'] as List<dynamic>)
+              .map((p) => Product.fromJson(p as Map<String, dynamic>))
+              .toList()
+          : <Product>[],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'store_name': store_name,
-      'is_active': is_active,
+      'store_name': storeName,
+      'is_active': isActive,
       'rating': rating,
       'founder': founder,
       'address': address.toJson(),
