@@ -26,7 +26,6 @@ class StorageService {
         return Store.fromJson(data);
       }
     } catch (_) {
-      // Nếu có lỗi truy cập file local, fallback đọc từ asset
     }
 
     final String assetContent = await rootBundle.loadString(
@@ -40,7 +39,7 @@ class StorageService {
     final filePath = await _getFile();
     if (filePath == null) {
       throw Exception(
-        'Plugin path_provider chưa được tích hợp vào ứng dụng đang chạy. Vui lòng TẮT HOÀN TOÀN (Stop) và CHẠY LẠI (Run/Debug) app!',
+        'Không thể tìm thấy thư mục lưu trữ dữ liệu.',
       );
     }
     final Map<String, dynamic> data = store.toJson();
