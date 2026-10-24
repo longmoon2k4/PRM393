@@ -1,107 +1,95 @@
 import 'package:flutter/material.dart';
 
-class RealApiLogin extends StatefulWidget {
-  const RealApiLogin({super.key});
+import '../service/auth_service.dart';
+
+class RealApiLoginScreen extends StatefulWidget {
+  const RealApiLoginScreen({super.key});
 
   @override
-  State<RealApiLogin> createState() => _RealApiLoginState();
+  State<RealApiLoginScreen> createState() => _RealApiLoginScreenState();
 }
 
-class _RealApiLoginState extends State<RealApiLogin> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+class _RealApiLoginScreenState extends State<RealApiLoginScreen> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _obscurePassword = true;
   bool _isLoading = false;
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
-  void _submitLogin() async {
+  void _handleLogin() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    
     setState(() {
       _isLoading = true;
     });
-    await Future.delayed(const Duration(seconds: 5));
-    final email = _emailController.text.trim();
+
+    final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
+
+    final result = await AuthService().login(username, password);
+
+    if (!mounted) return;
+    
     setState(() {
       _isLoading = false;
     });
-    if (!mounted) return;
-    if (email == 'smile@fpt.com' && password == '123456') {
+
+    if (result['success']) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Login success")));
+          .showSnackBar(SnackBar(content: Text('Đăng nhập thành công')));
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Login fail")));
+          .showSnackBar(SnackBar(content: Text(result['message'])));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Login')),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Email không hợp lệ';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16.0),
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Vui lòng nhập mật khẩu';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 24.0),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: _isLoading ? null : _submitLogin,
-                    child: _isLoading
-                        ? CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
-                          )
-                        : const Text('Đăng nhập'),
-                  ),
-                ),
-              ],
-            ),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Login')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                controller: _usernameController,
+                decoration: const InputDecoration(labelText: 'Username'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Vui lòng nhập Username';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _passwordController,
+                obscureText: _obscurePassword,
+                decoration: const InputDecoration(labelText: 'Password'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Vui lòng nhập Password';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: _isLoading ? null : _handleLogin,
+                child: const Text('Đăng nhập'),
+              ),
+            ],
           ),
         ),
       ),
