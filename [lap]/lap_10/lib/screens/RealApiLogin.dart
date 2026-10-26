@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../service/auth_service.dart';
+import 'HomeScreen.dart';
 
 class RealApiLoginScreen extends StatefulWidget {
   const RealApiLoginScreen({super.key});
@@ -27,7 +28,7 @@ class _RealApiLoginScreenState extends State<RealApiLoginScreen> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    
+
     setState(() {
       _isLoading = true;
     });
@@ -38,17 +39,24 @@ class _RealApiLoginScreenState extends State<RealApiLoginScreen> {
     final result = await AuthService().login(username, password);
 
     if (!mounted) return;
-    
+
     setState(() {
       _isLoading = false;
     });
 
-    if (result['success']) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Đăng nhập thành công')));
+    if (result['success'] == true) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(
+            token: result['token'] ?? '',
+            username: result['userData']?['username'] ?? 'Người dùng',
+          ),
+        ),
+      );
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(result['message'])));
+          .showSnackBar(SnackBar(content: Text(result['message'] ?? 'Đăng nhập thất bại. Vui lòng thử lại!')));
     }
   }
 
