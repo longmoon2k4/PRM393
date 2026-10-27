@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1085123385603",
+    "project_id": "smile-handon",
+    "storage_bucket": "smile-handon.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085123385603:android:b55bd579e1a983ddeb3136",
+        "android_client_info": {
+          "package_name": "dev.smile.lap_10"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085123385603-291gq5bkaf9rc82pppu3ako210gumfgd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.smile.lap_10",
+            "certificate_hash": "13a18b9495ffa5873d233e42f42b9b48cfc877a4"
+          }
+        },
+        {
+          "client_id": "1085123385603-06ps3ah96l2asmn2nhmtd270lmr363dr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI1Gd4eVGd2o1dWlFngRcKG3v2mSqEz6A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085123385603-06ps3ah96l2asmn2nhmtd270lmr363dr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

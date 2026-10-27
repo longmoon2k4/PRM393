@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  SessionManager _sessionManager = SessionManager();
+  final SessionManager _sessionManager = SessionManager();
   @override
   void initState() {
     // TODO: implement initState
